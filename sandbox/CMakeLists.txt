@@ -1,0 +1,19 @@
+add_executable(permute_avx512)
+target_sources(permute_avx512
+  PRIVATE
+  permute_avx512.cpp
+)
+target_compile_options(permute_avx512
+  PRIVATE
+  -march=native
+)
+
+add_executable(permute_generic)
+target_sources(permute_generic
+  PRIVATE
+  permute_generic.cpp
+)
+target_compile_options(permute_generic
+  PRIVATE
+  -march=native
+)
