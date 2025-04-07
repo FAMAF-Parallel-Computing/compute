@@ -8,6 +8,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 
+find_package(OpenMP REQUIRED)
+
 set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
 set(BENCHMARK_ENABLE_TESTING OFF)
 add_subdirectory(benchmark)
@@ -16,6 +18,10 @@ add_library(stencil_kernels STATIC)
 target_sources(stencil_kernels
   PRIVATE
   kernels_generic.cpp
+)
+target_link_libraries(stencil_kernels
+  PRIVATE
+  OpenMP::OpenMP_CXX
 )
 target_compile_options(stencil_kernels
   PRIVATE
