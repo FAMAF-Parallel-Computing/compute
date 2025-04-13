@@ -2,8 +2,6 @@
 
 #include <memory>
 
-#include <iostream>
-
 using namespace std;
 
 void stencil_1D3P_inplace(const uint64_t n, float *const __restrict inout) {

@@ -1,4 +1,4 @@
-# Stencil
+# Compute
 
 ## Analysis
 
