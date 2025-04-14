@@ -21,6 +21,16 @@ To only execute some benchmarks execute
 OMP_NUM_THREADS=16 OMP_PLACES=cores ./build/stencil_bench --benchmark_filter=2D5P_omp
 ```
 
+
+## MISC
+
+clang view optimization remarks. They will be located at the build dir
+`<build>/<subdirectory/CMakeFiles/**`
+
+```bash
+-fsave-optimization-record
+```
+
 ## References
 
 > Sharma, S. (2019). Multi-Dimensional Auto-Vectorization of Stencil Codes (Doctoral dissertation, Saarland University).

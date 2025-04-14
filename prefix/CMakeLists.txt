@@ -10,6 +10,7 @@ target_link_libraries(prefix_scan_kernels
 target_compile_options(prefix_scan_kernels
   PRIVATE
   -march=native
+  -fsave-optimization-record
 )
 
 add_executable(prefix_scan_bench)
