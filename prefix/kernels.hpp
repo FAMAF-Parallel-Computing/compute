@@ -1,5 +1,5 @@
-#ifndef STENCIL_KERNELS_HPP
-#define STENCIL_KERNELS_HPP
+#ifndef PREFIX_SCAN_KERNELS_HPP
+#define PREFIX_SCAN_KERNELS_HPP
 
 #include <cstdint>
 

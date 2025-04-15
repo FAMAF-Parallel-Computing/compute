@@ -88,23 +88,23 @@ void prefix_scan_f64_avx512(uint64_t n, const double *__restrict src,
   __m512i idx = _mm512_set1_epi64(3);
 
   for (uint64_t i = 0; i < n; i += N_UNROLL) {
-    zmm0 = _mm512_loadu_ps(src);
-    zmm5 = _mm512_loadu_ps(src + V_ELEMENTS);
+    zmm0 = _mm512_loadu_pd(src);
+    zmm5 = _mm512_loadu_pd(src + V_ELEMENTS);
 
     zmm2 = _mm512_maskz_permute_pd(0xAA, zmm0, 0x00);
     zmm7 = _mm512_maskz_permute_pd(0xAA, zmm5, 0x00);
-    zmm10 = _mm512_add_ps(zmm0, zmm2);
-    zmm11 = _mm512_add_ps(zmm5, zmm7);
+    zmm10 = _mm512_add_pd(zmm0, zmm2);
+    zmm11 = _mm512_add_pd(zmm5, zmm7);
 
     zmm1 = _mm512_maskz_permute_pd(0xCC, zmm0, 0x40);
     zmm6 = _mm512_maskz_permute_pd(0xCC, zmm0, 0b00'00'11'10);
-    zmm10 = _mm512_add_ps(zmm10, zmm1);
-    zmm11 = _mm512_add_ps(zmm11, zmm6);
+    zmm10 = _mm512_add_pd(zmm10, zmm1);
+    zmm11 = _mm512_add_pd(zmm11, zmm6);
 
-    zmm1 = _mm512_maskz_permute_ps(0xCC, zmm1, 0x44);
-    zmm6 = _mm512_maskz_permute_ps(0xCC, zmm6, 0x44);
-    zmm10 = _mm512_add_ps(zmm10, zmm1);
-    zmm11 = _mm512_add_ps(zmm11, zmm6);
+    zmm1 = _mm512_maskz_permute_pd(0xCC, zmm1, 0x44);
+    zmm6 = _mm512_maskz_permute_pd(0xCC, zmm6, 0x44);
+    zmm10 = _mm512_add_pd(zmm10, zmm1);
+    zmm11 = _mm512_add_pd(zmm11, zmm6);
 
     zmmTmp1 = _mm512_maskz_permutexvar_pd(0xF0, idx, zmm10);
     zmmTmp2 = _mm512_maskz_permutexvar_pd(0xF0, idx, zmm11);
