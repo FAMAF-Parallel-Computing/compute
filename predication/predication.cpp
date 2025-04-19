@@ -2,6 +2,14 @@
 
 #include <immintrin.h>
 
+
+/*
+  def (x: list):
+    for i in range(len(x)):
+      if (cond): 
+        x[i] +=1
+    return x
+*/
 void gt_zero_add_avx512(uint64_t n, float *const __restrict x) {
   [[assume(n % 16 == 0)]];
   for (uint64_t i = 0; i < n; i += 16) {
@@ -12,6 +20,15 @@ void gt_zero_add_avx512(uint64_t n, float *const __restrict x) {
   }
 }
 
+/*
+  def (x: list):
+    for i in range(len(x)):
+      if (cond):
+        x[i] +=1
+      else:
+       x[i] = sqrt(x[i]) 
+    return x
+*/
 void gt_zero_sqrt_add_lt_zero_avx512(uint64_t n, float *const __restrict x) {
   [[assume(n % 16 == 0)]];
   for (uint64_t i = 0; i < n; i += 16) {
