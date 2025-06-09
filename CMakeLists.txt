@@ -10,11 +10,14 @@ set(CMAKE_COLOR_DIAGNOSTICS ON)
 
 find_package(OpenMP REQUIRED)
 
-set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
-set(BENCHMARK_ENABLE_TESTING OFF)
-add_subdirectory(benchmark)
+find_package(benchmark REQUIRED CONFIG)
+
+enable_testing()
+include(GoogleTest)
+find_package(GTest REQUIRED CONFIG)
 
 add_subdirectory(stencil)
-add_subdirectory(prefix)
+#add_subdirectory(prefix)
 add_subdirectory(sandbox)
 add_subdirectory(conv)
+add_subdirectory(integration)
