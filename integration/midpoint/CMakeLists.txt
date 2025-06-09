@@ -11,6 +11,10 @@ target_sources(midpoint_omp_simd
   FILE_SET HEADERS
   FILES omp_simd.hpp
 )
+target_link_libraries(midpoint_omp_simd
+  INTERFACE
+  OpenMP::OpenMP_CXX
+)
 
 add_executable(
   midpoint_baseline_test
@@ -36,7 +40,6 @@ target_sources(midpoint_omp_simd_test
 )
 target_link_libraries(midpoint_omp_simd_test
   PRIVATE
-  OpenMP::OpenMP_CXX
   integration_util
   midpoint_omp_simd
   GTest::gtest GTest::gtest_main
