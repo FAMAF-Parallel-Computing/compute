@@ -38,3 +38,35 @@ TEST(matmulTest_v1, correctness) {
     }
   }
 }
+
+TEST(matmulTest_v3, correctness) {
+  auto A = generateMatrix(1024);
+  auto B = generateMatrix(1024);
+  auto CExpected = make_unique<float[]>(1024 * 1024);
+  auto C = make_unique<float[]>(1024 * 1024);
+
+  sgemm_v0(A.get(), B.get(), CExpected.get(), 1024, 1024, 1024);
+  sgemm_v3(A.get(), B.get(), C.get(), 1024, 1024, 1024);
+
+  for (uint32_t i = 0; i < 1024; ++i) {
+    for (uint32_t j = 0; j < 1024; ++j) {
+      EXPECT_NEAR(CExpected[i * 1024 + j], C[i * 1024 + j], 1e-5);
+    }
+  }
+}
+
+TEST(matmulTest_v4_1dtiling, correctness) {
+  auto A = generateMatrix(1024);
+  auto B = generateMatrix(1024);
+  auto CExpected = make_unique<float[]>(1024 * 1024);
+  auto C = make_unique<float[]>(1024 * 1024);
+
+  sgemm_v0(A.get(), B.get(), CExpected.get(), 1024, 1024, 1024);
+  sgemm_v4_1dtiling(A.get(), B.get(), C.get(), 1024, 1024, 1024);
+
+  for (uint32_t i = 0; i < 1024; ++i) {
+    for (uint32_t j = 0; j < 1024; ++j) {
+      EXPECT_NEAR(CExpected[i * 1024 + j], C[i * 1024 + j], 1e-5);
+    }
+  }
+}
