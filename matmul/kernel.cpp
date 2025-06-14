@@ -55,3 +55,23 @@ void sgemm_v4_1dtiling(const float *const __restrict A,
     }
   }
 }
+
+void sgemm_v5_omp(const float *const __restrict A,
+                       const float *const __restrict B,
+                       float *const __restrict C, uint32_t M, uint32_t N,
+                       uint32_t K) {
+#pragma omp parallel for collapse(2)
+  for (uint32_t mT = 0; mT < M; mT += 128) {
+    for (uint32_t nT = 0; nT < N; nT += 128) {
+      for (uint32_t kT = 0; kT < K; kT += 16) {
+        for (uint32_t m = mT; m < min(M, mT + 128); ++m) {
+          for (uint32_t k = kT; k < min(K, kT + 16); ++k) {
+            for (uint32_t n = nT; n < min(N, nT + 128); ++n) {
+              C[m * N + n] += A[m * K + k] * B[k * N + n];
+            }
+          }
+        }
+      }
+    }
+  }
+}

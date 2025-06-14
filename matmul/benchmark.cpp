@@ -91,3 +91,20 @@ static void BM_sgemm_v4_1dtiling(benchmark::State &state) {
       operations, benchmark::Counter::kIsIterationInvariantRate);
 }
 BENCHMARK(BM_sgemm_v4_1dtiling)->RangeMultiplier(2)->Range(64, 1024);
+
+static void BM_sgemm_v5_2dtiling(benchmark::State &state) {
+  const uint64_t n = state.range(0);
+
+  auto A = generateMatrix(n);
+  auto B = generateMatrix(n);
+  auto C = generateMatrix(n);
+
+  for (auto _ : state) {
+    sgemm_v5_omp(A.get(), B.get(), C.get(), n, n, n);
+  }
+
+  const double operations = n * n * n * 2.;
+  state.counters["FLOPS"] = benchmark::Counter(
+      operations, benchmark::Counter::kIsIterationInvariantRate);
+}
+BENCHMARK(BM_sgemm_v5_2dtiling)->RangeMultiplier(2)->Range(64, 1024);

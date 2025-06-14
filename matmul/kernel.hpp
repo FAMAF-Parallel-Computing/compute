@@ -17,4 +17,8 @@ void sgemm_v4_1dtiling(const float *const __restrict A,
                        float *const __restrict C, uint32_t M, uint32_t N,
                        uint32_t K);
 
+void sgemm_v5_omp(const float *const __restrict A,
+                  const float *const __restrict B, float *const __restrict C,
+                  uint32_t M, uint32_t N, uint32_t K);
+
 #endif
